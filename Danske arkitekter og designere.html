@@ -1,0 +1,183 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Danske arkitekter og designere</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column; summary first, then the timeline as a spine with the work year on the left. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #1d2129;
+  --muted: #5d6573;
+  --line: #d9dde4;
+  --accent: #b3122e;           /* Dannebrog red */
+  --nobel: #9a6b00;
+  --nobel-bg: #fbf1d8;
+  --nordic: #1d5fa8;
+  --nordic-bg: #e3eefb;
+  --film: #6b3fa0;
+  --film-bg: #efe7f8;
+  --record: #217a4b;
+  --record-bg: #e2f3e9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+    --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+    --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+  --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+  --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; }
+h1 .flag { color: var(--accent); }
+h2 { font-size: 1.5rem; }
+.lede { color: var(--muted); max-width: 62ch; margin: 10px 0 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* Summary */
+.prizes { display: grid; gap: 14px; }
+.prize-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prize-list li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+.prize-list .yr { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.prize-list .what { min-width: 0; }
+.prize-list .who { font-weight: 600; }
+.prize-list .note { color: var(--muted); font-size: 13.5px; }
+.remember { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; color: var(--fg); max-width: 70ch; margin: 0; }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+.b-nobel { background: var(--nobel-bg); color: var(--nobel); }
+.b-nordic { background: var(--nordic-bg); color: var(--nordic); }
+.b-film { background: var(--film-bg); color: var(--film); }
+.b-record { background: var(--record-bg); color: var(--record); }
+
+.tl-sec { display: grid; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--muted); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13.5px; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Timeline */
+.era { display: grid; gap: 0; }
+.era-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 18px 0 10px; border-bottom: 2px solid var(--fg); }
+.era-head .span { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.entry { display: grid; grid-template-columns: 76px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.entry .when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.1rem; color: var(--accent); padding-top: 2px; }
+.entry .body { min-width: 0; display: grid; gap: 4px; }
+.entry h3 { font-size: 1.2rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.entry .life { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.entry .role { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.entry .works { margin: 0; }
+.entry .works i { font-style: italic; }
+.entry .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.empty { color: var(--muted); padding: 16px 0; }
+.source { color: var(--muted); font-size: 13px; margin: 0; }
+@media (max-width: 520px) {
+  .entry { grid-template-columns: 1fr; gap: 4px; }
+  .prize-list li { grid-template-columns: 52px 1fr; }
+}
+
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Indfødsretsprøven · Kapitel 5.5 og 6.2</div>
+    <h1>Danske arkitekter og designere <span class="flag">fra C.F. Hansen til Bjarke Ingels</span></h1>
+    <p class="lede">Every architect, designer and building named in the official study material, in time order. The year on the left is the year of the building or design. A dash means the material gives no year.</p>
+  </header>
+
+  <section class="prizes" aria-labelledby="prizes-h">
+    <h2 id="prizes-h">Who designed what</h2>
+    <ol class="prize-list">
+      <li><span class="yr">1811</span><div class="what"><span class="who">C.F. Hansen</span> · <span class="badge b-nobel">Classicism</span><div class="note">Vor Frue Kirke, Copenhagen's cathedral, built 1811–29.</div></div></li>
+      <li><span class="yr">1931</span><div class="what"><span class="who">Aarhus Universitet</span> · <span class="badge b-nordic">Functionalism</span><div class="note">Built 1931–33 as a kind of academic village.</div></div></li>
+      <li><span class="yr">1950s</span><div class="what"><span class="who">Jørn Utzon</span> · <span class="badge b-film">Abroad</span><div class="note">The opera house in Sydney, designed in the late 1950s.</div></div></li>
+      <li><span class="yr">—</span><div class="what"><span class="who">Arne Jacobsen</span> · <span class="badge b-nordic">Functionalism</span><div class="note">Danmarks Nationalbank and Aarhus Rådhus. The chairs <i>7'eren</i> and <i>Ægget</i>.</div></div></li>
+      <li><span class="yr">2005</span><div class="what"><span class="who">Henning Larsen</span> · <span class="badge b-nobel">Copenhagen landmark</span><div class="note">Operahuset: 41,000 square metres on 14 floors.</div></div></li>
+      <li><span class="yr">2011</span><div class="what"><span class="who">Bjarke Ingels Group (BIG)</span> · <span class="badge b-record">World's best housing project 2011</span><div class="note">8TALLET in Ørestad on Amager. Also Amager Bakke (Copenhill), 2019.</div></div></li>
+    </ol>
+    <p class="remember"><strong>To remember:</strong> Functionalism arose in the 1920s and puts practical function first. Removing ornament made houses and furniture more alike, and its political aim was more social equality. PH's lamps and Børge Mogensen's furniture are the textbook examples.</p>
+  </section>
+
+  <section class="tl-sec" aria-labelledby="tl-h">
+    <h2 id="tl-h">Timeline</h2>
+    <div class="legend" aria-label="Badge legend">
+      <span class="badge b-nordic">Functionalism</span>
+      <span class="badge b-nobel">Landmark building</span>
+      <span class="badge b-film">Abroad and Greenland</span>
+      <span class="badge b-record">Record</span>
+    </div>
+    <div class="filters" role="group" aria-label="Filter the timeline">
+      <button id="f-all" type="button" data-filter="all" aria-pressed="true">Everything</button>
+      <button id="f-func" type="button" data-filter="func" aria-pressed="false">Functionalism</button>
+      <button id="f-design" type="button" data-filter="design" aria-pressed="false">Furniture &amp; lamps</button>
+      <button id="f-cph" type="button" data-filter="cph" aria-pressed="false">Copenhagen</button>
+      <button id="f-abroad" type="button" data-filter="abroad" aria-pressed="false">Abroad &amp; Greenland</button>
+      <button id="f-women" type="button" data-filter="women" aria-pressed="false">Women</button>
+    </div>
+    <div id="timeline"></div>
+    <p class="source">Source: <i>Læremateriale til indfødsretsprøven</i> (SIRI, August 2026), chapters 1, 5.5 and 6.2. Only facts from the material are included.</p>
+  </section>
+</div>
+
+<script>
+const ERAS = [{"id":"mid","name":"Middelalderen","en":"Middle Ages","span":"c. 1050–1500"},{"id":"abs","name":"Reformation, enevælde og oplysningstid","en":"Reformation, Absolutism and Enlightenment","span":"1536–1700s"},{"id":"gold","name":"Romantik og guldalder","en":"Romanticism and the Golden Age","span":"first half of 1800s"},{"id":"c20a","name":"1900-tallets første halvdel","en":"Early 20th century","span":"1900–1950"},{"id":"c20b","name":"Efterkrigstiden","en":"Post-war to 1990s","span":"1950–2000"},{"id":"now","name":"Nyere tid","en":"Contemporary","span":"2000–today"},{"id":"nd","name":"Uden årstal","en":"No date given in the material","span":"undated"}];
+const A = [{"era":"mid","y":"to 1850","name":"Landsbykirker og bindingsværksgårde","life":"through several centuries to the mid-1800s","role":"Building tradition","tags":[],"works":"Village churches and half-timbered farms built on hilltops and in the landscape show the Danish tradition of practical function and simplicity."},{"era":"abs","y":"1600s","name":"Christian 4.","life":"reigned 1588–1648","role":"Royal builder","tags":["cph"],"works":"Had a great interest in art and architecture and stood behind a long line of buildings in the first half of the 1600s, especially in and around Copenhagen."},{"era":"gold","y":"1811","name":"C.F. Hansen","life":"1756–1845","role":"Architect","tags":["cph"],"works":"Vor Frue Kirke, Copenhagen's cathedral (built 1811–29). Parts of it are shaped like a Roman temple and the entrance like a Greek temple front. An example of the exclusive buildings inspired by Greek and Roman architecture, c. 1760–1860.","badges":[["b-nobel","Københavns domkirke"]]},{"era":"c20a","y":"1920s","name":"Funktionalismen","life":"from the 1920s","role":"Style","tags":["func"],"works":"A way of designing that stresses practical function. It first helped improve the poor housing standard in the cities, then shaped the building of the welfare state. It became the expression of the broad Danish middle class and its modern lifestyle.","badges":[["b-nordic","Political aim: more social equality"]]},{"era":"c20a","y":"—","name":"Poul Henningsen (PH)","life":"1894–1967","role":"Lamp designer, architect","tags":["func","design"],"works":"Best known for the PH lamp, which made electric light glare-free. Three shades whose sizes, materials and colours can be combined in many ways. He was also a social critic, revue writer and film producer.","badges":[["b-nordic","PH-lampen"]]},{"era":"c20a","y":"1931","name":"Aarhus Universitet","life":"built 1931–33","role":"University","tags":["func"],"works":"The idea was an academic village marked by openness and harmony. Universitetsparken holds the institute buildings as well as student residences, a lake and streams.","badges":[["b-nordic","Functionalism"]]},{"era":"c20a","y":"1940s","name":"Børge Mogensen","life":"1914–72","role":"Furniture designer","tags":["func","design"],"works":"Developed a functionalist furniture programme for the supermarket chain FDB (now Coop). Flexible and simple, it shaped Danish homes as well as town halls, schools and hospitals.","badges":[["b-nordic","FDB-møbler"]]},{"era":"c20b","y":"—","name":"Arne Jacobsen","life":"1902–71","role":"Architect, designer","tags":["func","design","cph"],"works":"Inspired by several styles, not least functionalism. Architecture: Danmarks Nationalbank in Copenhagen and Aarhus Rådhus. Design: the chairs <i>7'eren</i> and <i>Ægget</i>, and Stelton coffee pots, teapots and other kitchen and serving ware."},{"era":"c20b","y":"1950s","name":"Jørn Utzon","life":"1918–2008","role":"Architect","tags":["abroad"],"works":"Designed the iconic opera house in Sydney, Australia's largest city, in the late 1950s. Large upright shells clad in a pattern of white tiles. It can look like a cathedral, the sails of a ship or the waves of the sea. He paved the way for a more experimental, expressive and playful style.","badges":[["b-film","Sydney Opera House"]]},{"era":"c20b","y":"1999","name":"Schmidt Hammer Lassen","life":"architecture firm","role":"Architects","tags":["cph"],"works":"Den Sorte Diamant (library) in Copenhagen, 1999, with a large ceiling decoration by Per Kirkeby.","badges":[["b-nobel","Den Sorte Diamant"]]},{"era":"now","y":"2005","name":"Henning Larsen","life":"architecture firm","role":"Architects","tags":["cph"],"works":"Operahuset in Copenhagen (2005), with light sculptures by Olafur Eliasson and bronze reliefs by Per Kirkeby. The firm also designed Moesgaard Museum south of Aarhus (2014).","badges":[["b-nobel","Operahuset: 41,000 m² on 14 floors"]]},{"era":"now","y":"2011","name":"Bjarke Ingels","life":"b. 1974","role":"Architect, BIG","tags":["cph"],"works":"His studio BIG (Bjarke Ingels Group) has designed prestige buildings in Denmark and abroad. 8TALLET in Ørestad on Amager. Amager Bakke, also called Copenhill, opened in 2019: energy-efficient waste incineration and a recreational oasis with ski slope, hiking route and climbing wall.","badges":[["b-record","8TALLET: world's best housing project 2011"]]},{"era":"now","y":"2014","name":"Kristine Jensen","life":"studio","role":"Architect","tags":["women"],"works":"Her studio designed the spectacular Moesgaard Museum building (2014) together with Henning Larsen's firm."},{"era":"now","y":"2021","name":"Kengo Kuma","life":"Japanese architect","role":"Architect","tags":[],"works":"H.C. Andersens Hus in Odense, a new museum about the poet and his fairy tales, opened in 2021."},{"era":"nd","y":"—","name":"Dorte Mandrup","life":"b. 1961","role":"Architect","tags":["abroad","women"],"works":"Isfjordscenteret (Isafjordcenteret in the material) at the Ilulissat fjord in Greenland and Vadehavscentret near Ribe. Her style lets the surroundings inspire and shape the buildings, which play together with the landscape's character and history.","badges":[["b-film","Ilulissat, Greenland"]]},{"era":"nd","y":"—","name":"3XN","life":"architecture firm","role":"Architects","tags":["cph"],"works":"FN Byen on Marmormolen in Copenhagen, designed as an eight-pointed star. It houses 11 UN organisations with 1,500 staff from more than 100 countries.","badges":[["b-nobel","FN Byen"]]}];
+const tl = document.getElementById("timeline");
+function render(filter) {
+  tl.innerHTML = "";
+  let shown = 0;
+  for (const era of ERAS) {
+    const rows = A.filter(a => a.era === era.id && (filter === "all" || a.tags.includes(filter)));
+    if (!rows.length) continue;
+    const sec = document.createElement("section");
+    sec.className = "era";
+    sec.innerHTML = '<div class="era-head"><h2>' + era.name + '</h2><span class="span">' + era.en + ' · ' + era.span + '</span></div>';
+    for (const a of rows) {
+      const badges = (a.badges || []).map(([c, t]) => '<span class="badge ' + c + '">' + t + '</span>').join("");
+      const el = document.createElement("article");
+      el.className = "entry";
+      el.innerHTML = '<div class="when">' + a.y + '</div><div class="body"><h3>' + a.name +
+        (a.life ? ' <span class="life">' + a.life + '</span>' : '') + '</h3><div class="role">' + a.role +
+        '</div><p class="works">' + a.works + '</p>' + (badges ? '<div class="badges">' + badges + '</div>' : '') + '</div>';
+      sec.appendChild(el);
+      shown++;
+    }
+    tl.appendChild(sec);
+  }
+  if (!shown) tl.innerHTML = '<p class="empty">Nothing matches this filter.</p>';
+}
+const buttons = document.querySelectorAll(".filters button");
+buttons.forEach(b => b.addEventListener("click", () => {
+  buttons.forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render(b.dataset.filter);
+}));
+render("all");
+</script>
+
+</body></html>

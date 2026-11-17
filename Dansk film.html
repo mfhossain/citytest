@@ -1,0 +1,185 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Dansk film</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column; summary first, then the timeline as a spine with the work year on the left. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #1d2129;
+  --muted: #5d6573;
+  --line: #d9dde4;
+  --accent: #b3122e;           /* Dannebrog red */
+  --nobel: #9a6b00;
+  --nobel-bg: #fbf1d8;
+  --nordic: #1d5fa8;
+  --nordic-bg: #e3eefb;
+  --film: #6b3fa0;
+  --film-bg: #efe7f8;
+  --record: #217a4b;
+  --record-bg: #e2f3e9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+    --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+    --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+  --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+  --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; }
+h1 .flag { color: var(--accent); }
+h2 { font-size: 1.5rem; }
+.lede { color: var(--muted); max-width: 62ch; margin: 10px 0 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* Summary */
+.prizes { display: grid; gap: 14px; }
+.prize-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prize-list li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+.prize-list .yr { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.prize-list .what { min-width: 0; }
+.prize-list .who { font-weight: 600; }
+.prize-list .note { color: var(--muted); font-size: 13.5px; }
+.remember { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; color: var(--fg); max-width: 70ch; margin: 0; }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+.b-nobel { background: var(--nobel-bg); color: var(--nobel); }
+.b-nordic { background: var(--nordic-bg); color: var(--nordic); }
+.b-film { background: var(--film-bg); color: var(--film); }
+.b-record { background: var(--record-bg); color: var(--record); }
+
+.tl-sec { display: grid; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--muted); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13.5px; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Timeline */
+.era { display: grid; gap: 0; }
+.era-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 18px 0 10px; border-bottom: 2px solid var(--fg); }
+.era-head .span { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.entry { display: grid; grid-template-columns: 76px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.entry .when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.1rem; color: var(--accent); padding-top: 2px; }
+.entry .body { min-width: 0; display: grid; gap: 4px; }
+.entry h3 { font-size: 1.2rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.entry .life { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.entry .role { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.entry .works { margin: 0; }
+.entry .works i { font-style: italic; }
+.entry .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.empty { color: var(--muted); padding: 16px 0; }
+.source { color: var(--muted); font-size: 13px; margin: 0; }
+@media (max-width: 520px) {
+  .entry { grid-template-columns: 1fr; gap: 4px; }
+  .prize-list li { grid-template-columns: 52px 1fr; }
+}
+
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Indfødsretsprøven · Kapitel 5.7</div>
+    <h1>Dansk film <span class="flag">fra Asta Nielsen til Druk</span></h1>
+    <p class="lede">Every director, actor and film named in the official study material, in time order. The year on the left is the year of the film the material highlights first.</p>
+  </header>
+
+  <section class="prizes" aria-labelledby="prizes-h">
+    <h2 id="prizes-h">Prizes at a glance</h2>
+    <ol class="prize-list">
+      <li><span class="yr">1987</span><div class="what"><span class="who">Bille August</span> · <span class="badge b-nobel">Oscar + Palme d'Or</span><div class="note"><i>Pelle Erobreren</i> (1987), based on Martin Andersen Nexø's novel. The material gives the film's year, not the award year.</div></div></li>
+      <li><span class="yr">1988</span><div class="what"><span class="who">Gabriel Axel</span> · <span class="badge b-nobel">Oscar</span><div class="note"><i>Babettes Gæstebud</i> (1987). The first Danish director to win an Oscar.</div></div></li>
+      <li><span class="yr">1998</span><div class="what"><span class="who">Thomas Vinterberg</span> · <span class="badge b-nordic">Prix du Jury, Cannes</span><div class="note"><i>Festen</i> (1998).</div></div></li>
+      <li><span class="yr">2000</span><div class="what"><span class="who">Lars von Trier</span> · <span class="badge b-nordic">Palme d'Or</span><div class="note"><i>Dancer in the Dark</i> (2000), with the Icelandic singer Björk in the lead.</div></div></li>
+      <li><span class="yr">2010</span><div class="what"><span class="who">Susanne Bier</span> · <span class="badge b-nobel">Oscar + Golden Globe</span><div class="note"><i>Hævnen</i> (2010). The material gives the film's year.</div></div></li>
+      <li><span class="yr">2012</span><div class="what"><span class="who">Mads Mikkelsen</span> · <span class="badge b-nordic">Best actor, Cannes</span><div class="note">For the role of Lucas in <i>Jagten</i> (2012).</div></div></li>
+      <li><span class="yr">2021</span><div class="what"><span class="who">Thomas Vinterberg</span> · <span class="badge b-nobel">Oscar</span><div class="note"><i>Druk</i> (2020).</div></div></li>
+    </ol>
+    <p class="remember"><strong>To remember:</strong> The material names four Oscar-winning directors: Gabriel Axel (the first), Bille August, Susanne Bier and Thomas Vinterberg. Bille August and Lars von Trier both won the Palme d'Or in Cannes.</p>
+  </section>
+
+  <section class="tl-sec" aria-labelledby="tl-h">
+    <h2 id="tl-h">Timeline</h2>
+    <div class="legend" aria-label="Badge legend">
+      <span class="badge b-nobel">Oscar</span>
+      <span class="badge b-nordic">Cannes prize</span>
+      <span class="badge b-film">Dogme 95</span>
+      <span class="badge b-record">Record</span>
+    </div>
+    <div class="filters" role="group" aria-label="Filter the timeline">
+      <button id="f-all" type="button" data-filter="all" aria-pressed="true">Everything</button>
+      <button id="f-prize" type="button" data-filter="prize" aria-pressed="false">Prizes &amp; records</button>
+      <button id="f-dir" type="button" data-filter="dir" aria-pressed="false">Directors</button>
+      <button id="f-actor" type="button" data-filter="actor" aria-pressed="false">Actors</button>
+      <button id="f-dogme" type="button" data-filter="dogme" aria-pressed="false">Dogme 95</button>
+      <button id="f-tv" type="button" data-filter="tv" aria-pressed="false">TV series</button>
+      <button id="f-women" type="button" data-filter="women" aria-pressed="false">Women</button>
+    </div>
+    <div id="timeline"></div>
+    <p class="source">Source: <i>Læremateriale til indfødsretsprøven</i> (SIRI, August 2026), chapter 5.7. Only facts from the material are included.</p>
+  </section>
+</div>
+
+<script>
+const ERAS = [{"id":"c20a","name":"1900-tallets første halvdel","en":"Early 20th century","span":"1900–1950"},{"id":"c20b","name":"Efterkrigstiden","en":"Post-war to 1990s","span":"1950–2000"},{"id":"now","name":"Nyere tid","en":"Contemporary","span":"2000–today"}];
+const A = [{"era":"c20a","y":"1906","name":"Nordisk Film","life":"founded 1906","role":"Film company","tags":[],"works":"The first films in Denmark were shot around 1900 and were reports about society. After Nordisk Film was founded in 1906 the Danish film industry grew fast and became known in many countries."},{"era":"c20a","y":"1900s","name":"Asta Nielsen","life":"1881–1972","role":"Actor","tags":["actor","women","prize"],"works":"Great success in silent films and made many films in Germany in the first half of the 1900s. Celebrated for her erotic charisma and her ability to express the whole range of feelings on screen.","badges":[["b-record","Denmark's first film star"]]},{"era":"c20a","y":"1928","name":"Carl Th. Dreyer","life":"1889–1968","role":"Director","tags":["dir"],"works":"The most important director of older Danish film history. The French <i>La passion de Jeanne d'Arc</i> (1928), <i>Vredens Dag</i> (1943) and <i>Ordet</i> (1955), based on a play by Kaj Munk, which ends with a young mother being raised from the dead. Known for close-ups and a slow tempo."},{"era":"c20a","y":"1946","name":"Astrid og Bjarne Henning-Jensen","life":"1914–2002 · 1908–95","role":"Directors","tags":["dir","women"],"works":"<i>Ditte Menneskebarn</i> (1946), after Martin Andersen Nexø's novel. A poor girl born outside marriage is caught in the vicious circle of poverty."},{"era":"c20a","y":"1947","name":"Johan Jacobsen","life":"1912–72","role":"Director","tags":["dir"],"works":"<i>Soldaten og Jenny</i> (1947). A young woman and a soldier meet by chance in a bar. Jenny has had an abortion, illegal at the time, and is threatened with punishment."},{"era":"c20a","y":"1950","name":"Alice O'Fredericks og Jon Iversen","life":"1899–1968 · 1889–1964","role":"Directors","tags":["dir","women","prize"],"works":"Film of Morten Korch's novel <i>De røde heste</i> (1950). A young farmer saves his farm by winning a big horse race. The biggest success of the popular comedies of 1950–75.","badges":[["b-record","Denmark's most-seen film"]]},{"era":"c20b","y":"1966","name":"Henning Carlsen","life":"1927–2014","role":"Director","tags":["dir"],"works":"<i>Sult</i> (1966), after the novel by the Norwegian author Knut Hamsun. A starving young writer wanders Kristiania (now Oslo) in the late 1800s."},{"era":"c20b","y":"1968","name":"Erik Balling","life":"1924–2005","role":"Director","tags":["dir","tv","prize"],"works":"The film series <i>Olsenbanden</i>: 14 films, the first in 1968, about a fictional gang led by Egon Olsen whose clever plans mostly go wrong. Copied in Norway and Sweden and popular in East Germany. Also directed the TV series <i>Matador</i> (24 episodes, 1978–82), set in the fictional town of Korsbæk and written mainly by Lise Nørgaard.","badges":[["b-record","Matador: the most-watched TV series in Denmark ever"]]},{"era":"c20b","y":"1981","name":"Nils Malmros","life":"b. 1944","role":"Director","tags":["dir"],"works":"<i>Kundskabens træ</i> (1981), about bullying and first love in a class of teenagers."},{"era":"c20b","y":"1982","name":"Børnefilm","life":"Folketinget, 1982","role":"Film policy","tags":[],"works":"In 1982 the Folketing gave Danish children's films better financial conditions and so recognised the artistic value of the genre."},{"era":"c20b","y":"1984","name":"Bille August","life":"b. 1948","role":"Director","tags":["dir","prize"],"works":"<i>Busters Verden</i> (1984), a children's film classic based on Bjarne Reuter's novel. <i>Pelle Erobreren</i> (1987), based on Martin Andersen Nexø's novel.","badges":[["b-nobel","Pelle Erobreren: Oscar"],["b-nordic","Palme d'Or"]]},{"era":"c20b","y":"1987","name":"Gabriel Axel","life":"1918–2014","role":"Director","tags":["dir","prize"],"works":"<i>Babettes Gæstebud</i> (1987), after Karen Blixen's story. A strict Christian congregation is served a lavish meal and becomes happier and better people.","badges":[["b-nobel","Oscar 1988, the first for a Danish director"]]},{"era":"c20b","y":"1995","name":"Dogme 95","life":"manifesto, 1995","role":"Film movement","tags":["dogme"],"works":"Written by Lars von Trier, Thomas Vinterberg, Søren Kragh-Jacobsen (b. 1947) and Kristian Levring (b. 1957). The four <i>dogmebrødre</i> committed to simple films that put the good story before technical effects.","badges":[["b-film","Dogme 95"]]},{"era":"c20b","y":"1998","name":"Lars von Trier","life":"b. 1956","role":"Director","tags":["dir","dogme","prize"],"works":"His first Dogme film was <i>Idioterne</i> (1998). The musical film <i>Dancer in the Dark</i> (2000) had the Icelandic singer Björk in the lead.","badges":[["b-nordic","Palme d'Or 2000"],["b-film","Dogme 95"]]},{"era":"c20b","y":"1998","name":"Thomas Vinterberg","life":"b. 1969","role":"Director","tags":["dir","dogme","prize"],"works":"The family drama <i>Festen</i> (1998). <i>Druk</i> (2020): four upper-secondary teachers try keeping alcohol in their blood all day. It goes well at first and ends in tragedy.","badges":[["b-nordic","Festen: Prix du Jury, Cannes 1998"],["b-nobel","Druk: Oscar 2021"],["b-film","Dogme 95"]]},{"era":"c20b","y":"1986","name":"Sofie Gråbøl","life":"b. 1968","role":"Actor","tags":["actor","women","tv"],"works":"Became known as 14-year-old Ester in the 1986 film of Tove Ditlevsen's <i>Barndommens Gade</i>. Detective Sarah Lund in the crime series <i>Forbrydelsen</i> (2007–12), popular in Denmark and abroad. The teacher Lillian in <i>Der kommer en dag</i> (2016)."},{"era":"now","y":"2000","name":"Jesper Christensen","life":"b. 1948","role":"Actor","tags":["actor"],"works":"The alcoholic Kaj in <i>Bænken</i> (2000), a portrait of Denmark's socially deprived areas. A teacher in <i>Drabet</i> (2005). Plays the terrorist who shoots Mads Mikkelsen's character in <i>Casino Royale</i> (2006)."},{"era":"now","y":"2010","name":"Susanne Bier","life":"b. 1960","role":"Director","tags":["dir","women","prize"],"works":"<i>Hævnen</i> (2010), about when in life it is right or wrong to take revenge on others.","badges":[["b-nobel","Oscar + Golden Globe"]]},{"era":"now","y":"2012","name":"Mads Mikkelsen","life":"b. 1965","role":"Actor","tags":["actor","prize"],"works":"Lucas in <i>Jagten</i> (2012), a kindergarten assistant falsely accused of paedophilia. The history teacher Martin in <i>Druk</i>. James Bond's main opponent in <i>Casino Royale</i> (2006).","badges":[["b-nordic","Best actor, Cannes 2012"]]},{"era":"now","y":"2016","name":"Trine Dyrholm","life":"b. 1972","role":"Actor","tags":["actor","women"],"works":"Marianne in <i>Hævnen</i>, Anna in <i>Kollektivet</i> (2016) and the lawyer Anne in <i>Dronningen</i> (2019)."}];
+const tl = document.getElementById("timeline");
+function render(filter) {
+  tl.innerHTML = "";
+  let shown = 0;
+  for (const era of ERAS) {
+    const rows = A.filter(a => a.era === era.id && (filter === "all" || a.tags.includes(filter)));
+    if (!rows.length) continue;
+    const sec = document.createElement("section");
+    sec.className = "era";
+    sec.innerHTML = '<div class="era-head"><h2>' + era.name + '</h2><span class="span">' + era.en + ' · ' + era.span + '</span></div>';
+    for (const a of rows) {
+      const badges = (a.badges || []).map(([c, t]) => '<span class="badge ' + c + '">' + t + '</span>').join("");
+      const el = document.createElement("article");
+      el.className = "entry";
+      el.innerHTML = '<div class="when">' + a.y + '</div><div class="body"><h3>' + a.name +
+        (a.life ? ' <span class="life">' + a.life + '</span>' : '') + '</h3><div class="role">' + a.role +
+        '</div><p class="works">' + a.works + '</p>' + (badges ? '<div class="badges">' + badges + '</div>' : '') + '</div>';
+      sec.appendChild(el);
+      shown++;
+    }
+    tl.appendChild(sec);
+  }
+  if (!shown) tl.innerHTML = '<p class="empty">Nothing matches this filter.</p>';
+}
+const buttons = document.querySelectorAll(".filters button");
+buttons.forEach(b => b.addEventListener("click", () => {
+  buttons.forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render(b.dataset.filter);
+}));
+render("all");
+</script>
+
+</body></html>

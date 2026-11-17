@@ -1,0 +1,305 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Danske forfattere</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column; prize summary first, then the author timeline as a spine with the work year on the left. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #1d2129;
+  --muted: #5d6573;
+  --line: #d9dde4;
+  --accent: #b3122e;           /* Dannebrog red */
+  --nobel: #9a6b00;
+  --nobel-bg: #fbf1d8;
+  --nordic: #1d5fa8;
+  --nordic-bg: #e3eefb;
+  --film: #6b3fa0;
+  --film-bg: #efe7f8;
+  --record: #217a4b;
+  --record-bg: #e2f3e9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+    --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+    --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+  --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+  --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; }
+h1 .flag { color: var(--accent); }
+h2 { font-size: 1.5rem; }
+.lede { color: var(--muted); max-width: 62ch; margin: 10px 0 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* Prize summary */
+.prizes { display: grid; gap: 14px; }
+.prize-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prize-list li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+.prize-list .yr { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.prize-list .what { min-width: 0; }
+.prize-list .who { font-weight: 600; }
+.prize-list .note { color: var(--muted); font-size: 13.5px; }
+.remember {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; color: var(--fg); max-width: 70ch;
+}
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+.b-nobel { background: var(--nobel-bg); color: var(--nobel); }
+.b-nominated { border: 1.5px dashed var(--nobel); color: var(--nobel); padding: 1px 8px; }
+.b-nordic { background: var(--nordic-bg); color: var(--nordic); }
+.b-film { background: var(--film-bg); color: var(--film); }
+.b-record { background: var(--record-bg); color: var(--record); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--muted); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13.5px; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Timeline */
+.era { display: grid; gap: 0; }
+.era-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 18px 0 10px; border-bottom: 2px solid var(--fg); }
+.era-head .span { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.entry { display: grid; grid-template-columns: 76px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.entry .when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.1rem; color: var(--accent); padding-top: 2px; }
+.entry .body { min-width: 0; display: grid; gap: 4px; }
+.entry h3 { font-size: 1.2rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.entry .life { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.entry .role { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.entry .works { margin: 0; }
+.entry .works i { font-style: italic; }
+.entry .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.empty { color: var(--muted); padding: 16px 0; }
+.source { color: var(--muted); font-size: 13px; }
+@media (max-width: 520px) {
+  .entry { grid-template-columns: 1fr; gap: 4px; }
+  .prize-list li { grid-template-columns: 52px 1fr; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Indfødsretsprøven · Kapitel 5 og 6</div>
+    <h1>Danske forfattere <span class="flag">fra Saxo til Yahya Hassan</span></h1>
+    <p class="lede">Every author named in the official study material (August 2026), in time order. The year on the left is the year of the work the material highlights. Badges show prizes, Nobel nominations, and film adaptations of their work that won prizes.</p>
+  </header>
+
+  <section class="prizes" aria-labelledby="prizes-h">
+    <h2 id="prizes-h">Prizes at a glance</h2>
+    <ol class="prize-list">
+      <li><span class="yr">1917</span><div class="what"><span class="who">Henrik Pontoppidan</span> · <span class="badge b-nobel">Nobel Prize in Literature</span><div class="note">Known for <i>Lykke-Per</i> (1898–1904).</div></div></li>
+      <li><span class="yr">1944</span><div class="what"><span class="who">Johannes V. Jensen</span> · <span class="badge b-nobel">Nobel Prize in Literature</span><div class="note">Known for <i>Kongens Fald</i> (1901) and <i>Himmerlandshistorier</i>.</div></div></li>
+      <li><span class="yr">—</span><div class="what"><span class="who">Inger Christensen</span> · <span class="badge b-nominated">Nobel candidate</span><div class="note">"Several times named a strong candidate" for the Nobel Prize. She never won it.</div></div></li>
+      <li><span class="yr">1987</span><div class="what"><span class="who">Martin Andersen Nexø</span> · <span class="badge b-film">Film of his novel: Oscar + Palme d'Or</span><div class="note">Bille August's film <i>Pelle Erobreren</i> (1987) won both prizes. The material gives the film's year, not the award year.</div></div></li>
+      <li><span class="yr">1988</span><div class="what"><span class="who">Karen Blixen</span> · <span class="badge b-film">Film of her story: Oscar</span><div class="note">Gabriel Axel's <i>Babettes Gæstebud</i> (1987) won the Oscar in 1988, the first Danish director to win one.</div></div></li>
+      <li><span class="yr">2021</span><div class="what"><span class="who">Niviaq Korneliussen</span> (Greenland) · <span class="badge b-nordic">Nordisk Råds Litteraturpris</span><div class="note">For <i>Naasuliardarpi</i> (Blomsterdalen, 2020).</div></div></li>
+      <li><span class="yr">2025</span><div class="what"><span class="who">Vónbjørt Vang</span> (Faroe Islands) · <span class="badge b-nordic">Nordisk Råds Litteraturpris</span><div class="note">For the poetry collection <i>Svørt Okidé</i> (Sort Okidé).</div></div></li>
+    </ol>
+    <p class="remember"><strong>To remember:</strong> the material names two Danish Nobel laureates in literature, Pontoppidan (1917) and Johannes V. Jensen (1944). Inger Christensen was only a candidate.</p>
+  </section>
+
+  <section aria-labelledby="tl-h" style="display:grid;gap:14px">
+    <h2 id="tl-h">Timeline</h2>
+    <div class="legend" aria-label="Badge legend">
+      <span class="badge b-nobel">Nobel Prize</span>
+      <span class="badge b-nominated">Nobel candidate</span>
+      <span class="badge b-nordic">Nordic Council prize</span>
+      <span class="badge b-film">Prize via film adaptation</span>
+      <span class="badge b-record">Record</span>
+    </div>
+    <div class="filters" role="group" aria-label="Filter authors">
+      <button id="f-all" type="button" data-filter="all" aria-pressed="true">All authors</button>
+      <button id="f-prize" type="button" data-filter="prize" aria-pressed="false">Prizes &amp; recognition</button>
+      <button id="f-hymn" type="button" data-filter="hymn" aria-pressed="false">Hymn writers</button>
+      <button id="f-nord" type="button" data-filter="nord" aria-pressed="false">Greenland &amp; Faroe Islands</button>
+      <button id="f-women" type="button" data-filter="women" aria-pressed="false">Women writers</button>
+    </div>
+    <div id="timeline"></div>
+    <p class="source">Source: <i>Læremateriale til indfødsretsprøven</i> (SIRI, August 2026), chapters 5.2, 5.4, 5.6, 6.6 and 6.8. Only facts from the material are included.</p>
+  </section>
+</div>
+
+<script>
+const ERAS = [
+  { id: "mid", name: "Middelalderen", en: "Middle Ages", span: "c. 1050–1500" },
+  { id: "abs", name: "Enevælde og oplysningstid", en: "Absolutism and Enlightenment", span: "1600–1700s" },
+  { id: "gold", name: "Romantik og guldalder", en: "Romanticism and the Golden Age", span: "first half of 1800s" },
+  { id: "mod", name: "Det moderne gennembrud", en: "The Modern Breakthrough", span: "late 1800s" },
+  { id: "c20a", name: "1900-tallets første halvdel", en: "Early 20th century", span: "1900–1950" },
+  { id: "c20b", name: "Efterkrigstiden", en: "Post-war to 1990s", span: "1950–2000" },
+  { id: "now", name: "Nyere tid", en: "Contemporary", span: "2000–today" }
+];
+
+// tags: prize, hymn, nord, women
+const A = [
+  { era:"mid", y:"1200s", name:"Saxo", life:"c. 1160–1208", role:"Historian",
+    works:"<i>Gesta Danorum</i> (early 1200s), in Latin. Showed Denmark was independent of the Germans and that Valdemar den Store was the rightful king.", tags:[] },
+
+  { era:"abs", y:"1673", name:"Leonora Christina", life:"1621–98", role:"Memoir", tags:["women"],
+    works:"<i>Jammers Minde</i> (written 1673–74, published 1869). Christian 4.'s daughter writes about her long imprisonment on a charge of treason." },
+  { era:"abs", y:"1600s", name:"Thomas Kingo", life:"1634–1703", role:"Hymn writer", tags:["hymn"],
+    works:"Hymns marked by awareness that life is not eternal." },
+  { era:"abs", y:"1722", name:"Ludvig Holberg", life:"1684–1754", role:"Playwright", tags:[],
+    works:"<i>Jeppe på Bjerget</i> (1722), <i>Erasmus Montanus</i> (1723). The leading Danish-Norwegian author of the Enlightenment. First to write comedies in Danish: 25 comedies in a few years." },
+  { era:"abs", y:"1700s", name:"Hans Adolph Brorson", life:"1694–1764", role:"Hymn writer", tags:["hymn"],
+    works:"Hymns of heartfelt, emotional faith." },
+  { era:"abs", y:"1778", name:"Johannes Ewald", life:"1743–81", role:"Poet", tags:[],
+    works:"Text of <i>Kong Christian stod ved højen mast</i> (1778/79), one of Denmark's two national anthems and the royal anthem." },
+
+  { era:"gold", y:"1802", name:"Adam Oehlenschläger", life:"1779–1850", role:"Poet, National Romanticism", tags:[],
+    works:"<i>Guldhornene</i> (1802), <i>Aladdin eller Den Forunderlige Lampe</i> (1805), and <i>Der er et yndigt land</i> (1819), the other national anthem." },
+  { era:"gold", y:"1824", name:"Steen Steensen Blicher", life:"1782–1848", role:"Prose", tags:[],
+    works:"<i>Brudstykker af en Landsbydegns Dagbog</i> (1824). One of the first to write about ordinary people's lives in Jutland." },
+  { era:"gold", y:"1800s", name:"N.F.S. Grundtvig", life:"1783–1872", role:"Hymn writer, priest", tags:["hymn"],
+    works:"More than 1,500 hymns and songs, e.g. <i>Det er så yndigt at følges ad</i> and <i>Vær velkommen, Herrens år</i>. Hymns praise nature, the child and earthly life." },
+  { era:"gold", y:"1800s", name:"B.S. Ingemann", life:"1789–1862", role:"Hymn writer", tags:["hymn"],
+    works:"Hymns praising nature, the child and life on earth, like Grundtvig's." },
+  { era:"gold", y:"1800s", name:"Johan Ludvig Heiberg", life:"1791–1860", role:"Playwright, theatre director", tags:[],
+    works:"Vaudevilles at Det Kongelige Teater (comedies with music, inspired by France)." },
+  { era:"gold", y:"1837", name:"H.C. Andersen", life:"1805–75", role:"Fairy tales", tags:["prize"],
+    works:"Fairy tales such as <i>Den lille havfrue</i> (1837), <i>Den grimme ælling</i>, <i>Kejserens nye klæder</i>, <i>Den lille pige med svovlstikkerne</i>, <i>Grantræet</i>. Born in Odense.",
+    badges:[["b-record","Translated into 125+ languages"],["b-film","Inspired Disney's The Little Mermaid (1989, 2023)"]] },
+  { era:"gold", y:"1843", name:"Søren Kierkegaard", life:"1813–55", role:"Philosopher", tags:[],
+    works:"<i>Enten – Eller</i> (1843). Regarded as the founder of existentialism." },
+  { era:"gold", y:"1851", name:"Mathilde Fibiger", life:"1830–72", role:"Novelist", tags:["women"],
+    works:"<i>Clara Raphael. Tolv Breve</i> (1851), a novel in letters about women's emancipation. Denmark's first female civil servant." },
+
+  { era:"mod", y:"1886", name:"Herman Bang", life:"1857–1912", role:"Novelist", tags:[],
+    works:"<i>Ved Vejen</i> (1886)." },
+  { era:"mod", y:"1898", name:"Henrik Pontoppidan", life:"1857–1943", role:"Novelist", tags:["prize"],
+    works:"<i>Lykke-Per</i> (1898–1904): a priest's son goes to Copenhagen with big plans to modernise Denmark.",
+    badges:[["b-nobel","Nobel Prize in Literature 1917"]] },
+  { era:"mod", y:"1906", name:"Martin Andersen Nexø", life:"1869–1954", role:"Novelist", tags:["prize"],
+    works:"<i>Pelle Erobreren</i> (1906–10) and <i>Ditte Menneskebarn</i> (1917–21), about poor people's fight for better conditions. Both were filmed.",
+    badges:[["b-film","Film Pelle Erobreren (1987): Oscar + Palme d'Or"]] },
+  { era:"mod", y:"1918", name:"Emma Gad", life:"1852–1921", role:"Playwright, etiquette", tags:["women"],
+    works:"<i>Takt og Tone – Hvordan Vi Omgås</i> (1918), the best-known Danish etiquette book. Also plays about gender roles and morality." },
+
+  { era:"c20a", y:"1901", name:"Johannes V. Jensen", life:"1873–1950", role:"Novelist", tags:["prize"],
+    works:"<i>Kongens Fald</i> (1901) about Christian 2.; <i>Himmerlandshistorier</i> (1898–1910).",
+    badges:[["b-nobel","Nobel Prize in Literature 1944"]] },
+  { era:"c20a", y:"1937", name:"Karen Blixen", life:"1885–1962", role:"Storyteller", tags:["prize","women"],
+    works:"<i>Den Afrikanske Farm</i> (1937), about her coffee farm in Kenya. Published in both Danish and English.",
+    badges:[["b-film","Film Babettes Gæstebud: Oscar 1988"]] },
+  { era:"c20a", y:"1938", name:"Hans Lynge", life:"1906–88", role:"Greenlandic author", tags:["nord"],
+    works:"<i>Ersinngitsup piumasaa</i> (Den usynliges vilje, 1938). Major figure in Greenlandic art and literature; argued for more independence." },
+  { era:"c20a", y:"1939", name:"Kjeld Abell", life:"1901–61", role:"Playwright", tags:[],
+    works:"<i>Anna Sophie Hedvig</i> (1939), a call to resist fascism and Nazism; the revue <i>Dyveke</i> (1940)." },
+  { era:"c20a", y:"1939", name:"Jørgen-Frantz Jacobsen", life:"1900–38", role:"Faroese novelist", tags:["nord"],
+    works:"<i>Barbara</i> (1939, published the year after his death), set in the 1700s Faroe Islands." },
+  { era:"c20a", y:"1942", name:"Kaj Munk", life:"1898–1944", role:"Playwright, priest", tags:[],
+    works:"<i>Niels Ebbesen</i> (printed and banned 1942, staged 1945), urging resistance to the occupation. Murdered by the Nazis in 1944. His play was the basis for Dreyer's film <i>Ordet</i> (1955)." },
+  { era:"c20a", y:"1943", name:"Tove Ditlevsen", life:"1917–76", role:"Poet, novelist", tags:["women"],
+    works:"<i>Barndommens Gade</i> (1943); memoir trilogy <i>Barndom, Ungdom, Gift</i> (1967–71), recently popular in the USA, UK and Germany." },
+  { era:"c20a", y:"1950", name:"Morten Korch", life:"1876–1954", role:"Novelist", tags:["prize"],
+    works:"Novel behind <i>De røde heste</i>.",
+    badges:[["b-record","Film De røde heste (1950): Denmark's most-seen film"]] },
+  { era:"c20a", y:"1950", name:"William Heinesen", life:"1900–91", role:"Faroese novelist", tags:["nord"],
+    works:"<i>De fortabte spillemænd</i> (1950), about musicians rejected by a strict, religious community. Cousin of Jørgen-Frantz Jacobsen." },
+
+  { era:"c20b", y:"1958", name:"Klaus Rifbjerg", life:"1931–2015", role:"Novelist", tags:[],
+    works:"<i>Den kroniske uskyld</i> (1958), about youth and school life. One of the most productive Danish authors." },
+  { era:"c20b", y:"1968", name:"Leif Panduro", life:"1923–77", role:"TV playwright", tags:[],
+    works:"<i>Farvel Thomas</i> (1968). TV theatre about family conflicts in times of growing prosperity." },
+  { era:"c20b", y:"1960s+", name:"Suzanne Brøgger", life:"b. 1944", role:"Novelist", tags:["women"],
+    works:"Novels about women's liberation, from the mid-1960s wave of new directions." },
+  { era:"c20b", y:"1978", name:"Lise Nørgaard", life:"1917–2023", role:"Screenwriter", tags:["prize","women"],
+    works:"Main writer of the TV series <i>Matador</i> (24 episodes, 1978–82), inspired by her own youth.",
+    badges:[["b-record","Most-watched TV series in Denmark ever"]] },
+  { era:"c20b", y:"1984", name:"Bjarne Reuter", life:"b. 1950", role:"Children's author", tags:[],
+    works:"Novel behind Bille August's children's film classic <i>Busters Verden</i> (1984)." },
+  { era:"c20b", y:"1985", name:"Michael Strunge", life:"1958–86", role:"Poet", tags:[],
+    works:"<i>Verdenssøn</i> (1985). Poems about dreams, depression, love, rebellion and city life." },
+  { era:"c20b", y:"1991", name:"Inger Christensen", life:"1935–2009", role:"Poet", tags:["prize","women"],
+    works:"<i>Sommerfugledalen</i> (1991), one of the great works of modern Danish literature. Translated into many languages.",
+    badges:[["b-nominated","Several times a strong Nobel candidate"]] },
+  { era:"c20b", y:"1994", name:"Line Knutzon", life:"b. 1965", role:"Playwright", tags:["women"],
+    works:"<i>Først bliver man jo født</i> (1994). Satirical, absurd and very funny drama." },
+
+  { era:"now", y:"2005", name:"Helle Helle", life:"b. 1965", role:"Novelist", tags:["women"],
+    works:"<i>Rødby-Puttgarden</i> (2005), <i>Hafni fortæller</i> (2023), <i>Hey Hafni</i> (2025). Understated stories from small-town Denmark." },
+  { era:"now", y:"2013", name:"Yahya Hassan", life:"1995–2020", role:"Poet", tags:["prize"],
+    works:"<i>Yahya Hassan</i> (2013), poems about growing up as an immigrant in a ghetto area. Sparked fierce debate.",
+    badges:[["b-record","Best-selling Danish poetry collection ever (100,000+)"]] },
+  { era:"now", y:"2017", name:"Naja Marie Aidt", life:"b. 1963", role:"Poet, novelist", tags:["women"],
+    works:"<i>Har døden taget noget fra dig, så giv det tilbage. Carls bog</i> (2017), about grief after her son's death." },
+  { era:"now", y:"2017", name:"Leonora Christina Skov", life:"b. 1976", role:"Auto-fiction", tags:["women"],
+    works:"<i>Den, der lever stille</i> (2017), about growing up and coming out as lesbian." },
+  { era:"now", y:"2017", name:"Thomas Korsgaard", life:"b. 1995", role:"Auto-fiction", tags:[],
+    works:"Trilogy <i>Hvis der skulle komme et menneske forbi</i> (2017), <i>En dag vil vi grine af det</i> (2018), <i>Man skulle nok have været der</i> (2021)." },
+  { era:"now", y:"2020", name:"Niviaq Korneliussen", life:"b. 1990", role:"Greenlandic novelist", tags:["prize","nord","women"],
+    works:"<i>Naasuliardarpi</i> (Blomsterdalen, 2020), about young Greenlanders who belong neither in traditional culture nor in Copenhagen.",
+    badges:[["b-nordic","Nordisk Råds Litteraturpris 2021"]] },
+  { era:"now", y:"2021", name:"Glenn Bech", life:"b. 1991", role:"Auto-fiction", tags:[],
+    works:"<i>Farskibet</i> (2021), about his father's suicide and toxic masculinity; <i>Jeg anerkender ikke længere jeres autoritet</i> (2022)." },
+  { era:"now", y:"2025", name:"Vónbjørt Vang", life:"b. 1974", role:"Faroese poet", tags:["prize","nord","women"],
+    works:"<i>Svørt Okidé</i> (Sort Okidé), poems about a mother's fear of losing her teenage son to addiction.",
+    badges:[["b-nordic","Nordisk Råds Litteraturpris 2025"]] }
+];
+
+const tl = document.getElementById("timeline");
+function render(filter) {
+  tl.innerHTML = "";
+  let shown = 0;
+  for (const era of ERAS) {
+    const rows = A.filter(a => a.era === era.id && (filter === "all" || a.tags.includes(filter)));
+    if (!rows.length) continue;
+    const sec = document.createElement("section");
+    sec.className = "era";
+    sec.innerHTML = `<div class="era-head"><h2>${era.name}</h2><span class="span">${era.en} · ${era.span}</span></div>`;
+    for (const a of rows) {
+      const badges = (a.badges || []).map(([c, t]) => `<span class="badge ${c}">${t}</span>`).join("");
+      const el = document.createElement("article");
+      el.className = "entry";
+      el.innerHTML = `<div class="when">${a.y}</div>
+        <div class="body">
+          <h3>${a.name} <span class="life">${a.life}</span></h3>
+          <div class="role">${a.role}</div>
+          <p class="works">${a.works}</p>
+          ${badges ? `<div class="badges">${badges}</div>` : ""}
+        </div>`;
+      sec.appendChild(el);
+      shown++;
+    }
+    tl.appendChild(sec);
+  }
+  if (!shown) tl.innerHTML = `<p class="empty">No authors match this filter.</p>`;
+}
+
+const buttons = document.querySelectorAll(".filters button");
+buttons.forEach(b => b.addEventListener("click", () => {
+  buttons.forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render(b.dataset.filter);
+}));
+render("all");
+</script>
+
+</body></html>

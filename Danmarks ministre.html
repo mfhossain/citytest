@@ -1,0 +1,171 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Danmarks ministre</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column; summary first, then the timeline as a spine with the work year on the left. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #1d2129;
+  --muted: #5d6573;
+  --line: #d9dde4;
+  --accent: #b3122e;           /* Dannebrog red */
+  --nobel: #9a6b00;
+  --nobel-bg: #fbf1d8;
+  --nordic: #1d5fa8;
+  --nordic-bg: #e3eefb;
+  --film: #6b3fa0;
+  --film-bg: #efe7f8;
+  --record: #217a4b;
+  --record-bg: #e2f3e9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+    --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+    --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+  --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+  --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; }
+h1 .flag { color: var(--accent); }
+h2 { font-size: 1.5rem; }
+.lede { color: var(--muted); max-width: 62ch; margin: 10px 0 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* Summary */
+.prizes { display: grid; gap: 14px; }
+.prize-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prize-list li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+.prize-list .yr { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.prize-list .what { min-width: 0; }
+.prize-list .who { font-weight: 600; }
+.prize-list .note { color: var(--muted); font-size: 13.5px; }
+.remember { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; color: var(--fg); max-width: 70ch; margin: 0; }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+.b-nobel { background: var(--nobel-bg); color: var(--nobel); }
+.b-nordic { background: var(--nordic-bg); color: var(--nordic); }
+.b-film { background: var(--film-bg); color: var(--film); }
+.b-record { background: var(--record-bg); color: var(--record); }
+
+.tl-sec { display: grid; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--muted); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13.5px; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Timeline */
+.era { display: grid; gap: 0; }
+.era-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 18px 0 10px; border-bottom: 2px solid var(--fg); }
+.era-head .span { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.entry { display: grid; grid-template-columns: 76px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.entry .when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.1rem; color: var(--accent); padding-top: 2px; }
+.entry .body { min-width: 0; display: grid; gap: 4px; }
+.entry h3 { font-size: 1.2rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.entry .life { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.entry .role { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.entry .works { margin: 0; }
+.entry .works i { font-style: italic; }
+.entry .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.empty { color: var(--muted); padding: 16px 0; }
+.source { color: var(--muted); font-size: 13px; margin: 0; }
+@media (max-width: 520px) {
+  .entry { grid-template-columns: 1fr; gap: 4px; }
+  .prize-list li { grid-template-columns: 52px 1fr; }
+}
+
+.entry { grid-template-columns: 44px 1fr; }
+.entry .when { color: var(--muted); }
+.entry .ministry { font-weight: 600; }
+.entry .en { color: var(--muted); font-size: 13.5px; }
+.entry .chg { color: var(--muted); font-size: 13.5px; border-left: 3px solid var(--accent); padding-left: 10px; margin-top: 2px; }
+.star { color: var(--accent); }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Regeringen Mette Frederiksen III · as of 17 November 2026</div>
+    <h1>Danmarks ministre <span class="flag">og deres ministerier</span></h1>
+    <p class="lede">All 21 ministers in the current Danish government, in the order of the government's own list. The government took office on 3 June 2026 and is formed by four parties.</p>
+  </header>
+
+  <section class="prizes" aria-labelledby="sum-h">
+    <h2 id="sum-h">The government at a glance</h2>
+    <ol class="prize-list">
+      <li><span class="yr">9</span><div class="what"><span class="who">Socialdemokratiet</span> · <span class="badge b-film">S</span><div class="note">The Prime Minister's party.</div></div></li>
+      <li><span class="yr">5</span><div class="what"><span class="who">Socialistisk Folkeparti</span> · <span class="badge b-record">SF</span></div></li>
+      <li><span class="yr">4</span><div class="what"><span class="who">Moderaterne</span> · <span class="badge b-nordic">M</span></div></li>
+      <li><span class="yr">3</span><div class="what"><span class="who">Radikale Venstre</span> · <span class="badge b-nobel">RV</span></div></li>
+    </ol>
+    <p class="remember"><strong>To remember:</strong> Mette Frederiksen (S) is Prime Minister, Lars Løkke Rasmussen (M) is Foreign Minister, Peter Hummelgaard (S) is Finance Minister and Nicolai Wammen (S) is Justice Minister. One change since the government was formed: on 27 October 2026 Karina Lorentzen Dehnhardt replaced Signe Munk.</p>
+  </section>
+
+  <section class="tl-sec" aria-labelledby="tl-h">
+    <h2 id="tl-h">Ministers and ministries</h2>
+    <div class="filters" role="group" aria-label="Filter by party">
+      <button id="f-all" type="button" data-filter="all" aria-pressed="true">All 21</button>
+      <button id="f-S" type="button" data-filter="S" aria-pressed="false">Socialdemokratiet</button>
+      <button id="f-SF" type="button" data-filter="SF" aria-pressed="false">SF</button>
+      <button id="f-M" type="button" data-filter="M" aria-pressed="false">Moderaterne</button>
+      <button id="f-RV" type="button" data-filter="RV" aria-pressed="false">Radikale Venstre</button>
+    </div>
+    <div id="list" class="era"></div>
+    <p class="source"><span class="star">*</span> Ministry name formed from the minister's title. The official sources list the titles but not the ministry names, and several ministries were newly named in June 2026, so check these against the ministry's own site.</p>
+    <p class="source">Sources: Statsministeriet press releases of 3 June 2026 and 27 October 2026, and regeringen.dk. English titles are translations, not official forms.</p>
+  </section>
+</div>
+
+<script>
+const M = [["Mette Frederiksen","S","Statsminister","Statsministeriet","Prime Minister",0],["Pia Olsen Dyhr","SF","Økonomi- og indenrigsminister","Økonomi- og Indenrigsministeriet","Minister for Economic Affairs and the Interior",0],["Lars Løkke Rasmussen","M","Udenrigsminister","Udenrigsministeriet","Minister for Foreign Affairs",0],["Martin Lidegaard","RV","Erhvervs- og konkurrencekraftsminister","Erhvervs- og Konkurrencekraftsministeriet","Minister for Business and Competitiveness",1],["Peter Hummelgaard","S","Finansminister","Finansministeriet","Minister for Finance",0],["Nicolai Wammen","S","Justitsminister","Justitsministeriet","Minister of Justice",0],["Christina Egelund","M","Forsknings-, uddannelses- og digitaliseringsminister","Forsknings-, Uddannelses- og Digitaliseringsministeriet","Minister for Research, Education and Digitalisation",1],["Samira Nawa","RV","Klima-, energi- og forsyningsminister","Klima-, Energi- og Forsyningsministeriet","Minister for Climate, Energy and Utilities",0],["Karina Lorentzen Dehnhardt","SF","By-, land- og transportminister","By-, Land- og Transportministeriet","Minister for Cities, Rural Areas and Transport",1,"Since 27 October 2026. Replaced Signe Munk (SF), who left the government."],["Morten Bødskov","S","Udlændinge- og integrationsminister","Udlændinge- og Integrationsministeriet","Minister for Immigration and Integration",0],["Magnus Heunicke","S","Undervisningsminister","Undervisningsministeriet","Minister for Education",1],["Ane Halsboe-Jørgensen","S","Beskæftigelsesminister og minister for ligestilling","Beskæftigelsesministeriet","Minister for Employment and Minister for Gender Equality",0],["Jeppe Bruus","S","Forsvarsminister","Forsvarsministeriet","Minister of Defence",0],["Jakob Engel-Schmidt","M","Skatte- og vækstminister","Skatte- og Vækstministeriet","Minister for Taxation and Growth",1],["Ida Auken","S","Sundhedsminister og kirkeminister","Sundhedsministeriet og Kirkeministeriet","Minister for Health and Minister for Ecclesiastical Affairs",1],["Christian Rabjerg Madsen","S","Minister for natur og dyrevelfærd","Ministeriet for Natur og Dyrevelfærd","Minister for Nature and Animal Welfare",1],["Zenia Stampe","RV","Kulturminister","Kulturministeriet","Minister for Culture",0],["Lisbeth Bech-Nielsen","SF","Minister for samfundssikkerhed og beredskab","Ministeriet for Samfundssikkerhed og Beredskab","Minister for Societal Security and Preparedness",0],["Jacob Mark","SF","Børne-, ældre- og boligminister","Børne-, Ældre- og Boligministeriet","Minister for Children, Senior Citizens and Housing",1],["Monika Rubin","M","Socialminister og minister for nordisk samarbejde","Socialministeriet","Minister for Social Affairs and Minister for Nordic Cooperation",1],["Maria Reumert Gjerding","SF","Miljøminister","Miljøministeriet","Minister for the Environment",0]];
+const P = {"S":["Socialdemokratiet","b-film"],"SF":["Socialistisk Folkeparti","b-record"],"M":["Moderaterne","b-nordic"],"RV":["Radikale Venstre","b-nobel"]};
+const list = document.getElementById("list");
+function render(f) {
+  list.innerHTML = "";
+  M.forEach((m, i) => {
+    if (f !== "all" && m[1] !== f) return;
+    const el = document.createElement("article");
+    el.className = "entry";
+    el.innerHTML = '<div class="when">' + (i + 1) + '</div><div class="body"><h3>' + m[0] +
+      ' <span class="badge ' + P[m[1]][1] + '">' + m[1] + '</span></h3><div class="role">' + m[2] +
+      '</div><p class="works"><span class="ministry">' + m[3] + (m[5] ? ' <span class="star">*</span>' : '') +
+      '</span></p><div class="en">' + m[4] + '</div>' + (m[6] ? '<div class="chg">' + m[6] + '</div>' : '') + '</div>';
+    list.appendChild(el);
+  });
+}
+const buttons = document.querySelectorAll(".filters button");
+buttons.forEach(b => b.addEventListener("click", () => {
+  buttons.forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render(b.dataset.filter);
+}));
+render("all");
+</script>
+
+</body></html>

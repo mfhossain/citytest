@@ -1,0 +1,184 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Danske malere</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column; summary first, then the timeline as a spine with the work year on the left. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #1d2129;
+  --muted: #5d6573;
+  --line: #d9dde4;
+  --accent: #b3122e;           /* Dannebrog red */
+  --nobel: #9a6b00;
+  --nobel-bg: #fbf1d8;
+  --nordic: #1d5fa8;
+  --nordic-bg: #e3eefb;
+  --film: #6b3fa0;
+  --film-bg: #efe7f8;
+  --record: #217a4b;
+  --record-bg: #e2f3e9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+    --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+    --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+  --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+  --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; }
+h1 .flag { color: var(--accent); }
+h2 { font-size: 1.5rem; }
+.lede { color: var(--muted); max-width: 62ch; margin: 10px 0 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* Summary */
+.prizes { display: grid; gap: 14px; }
+.prize-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prize-list li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+.prize-list .yr { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.prize-list .what { min-width: 0; }
+.prize-list .who { font-weight: 600; }
+.prize-list .note { color: var(--muted); font-size: 13.5px; }
+.remember { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; color: var(--fg); max-width: 70ch; margin: 0; }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+.b-nobel { background: var(--nobel-bg); color: var(--nobel); }
+.b-nordic { background: var(--nordic-bg); color: var(--nordic); }
+.b-film { background: var(--film-bg); color: var(--film); }
+.b-record { background: var(--record-bg); color: var(--record); }
+
+.tl-sec { display: grid; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--muted); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13.5px; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Timeline */
+.era { display: grid; gap: 0; }
+.era-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 18px 0 10px; border-bottom: 2px solid var(--fg); }
+.era-head .span { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.entry { display: grid; grid-template-columns: 76px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.entry .when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.1rem; color: var(--accent); padding-top: 2px; }
+.entry .body { min-width: 0; display: grid; gap: 4px; }
+.entry h3 { font-size: 1.2rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.entry .life { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.entry .role { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.entry .works { margin: 0; }
+.entry .works i { font-style: italic; }
+.entry .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.empty { color: var(--muted); padding: 16px 0; }
+.source { color: var(--muted); font-size: 13px; margin: 0; }
+@media (max-width: 520px) {
+  .entry { grid-template-columns: 1fr; gap: 4px; }
+  .prize-list li { grid-template-columns: 52px 1fr; }
+}
+
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Indfødsretsprøven · Kapitel 5.3, 6.2 og 6.6</div>
+    <h1>Danske malere <span class="flag">fra kalkmalerier til Olafur Eliasson</span></h1>
+    <p class="lede">Every painter and visual artist named in the official study material, in time order. The year on the left is the year of the work the material highlights. A dash means the material gives no year.</p>
+  </header>
+
+  <section class="prizes" aria-labelledby="prizes-h">
+    <h2 id="prizes-h">Works and records at a glance</h2>
+    <ol class="prize-list">
+      <li><span class="yr">1875</span><div class="what"><span class="who">Skagensmalerne</span> · <span class="badge b-nordic">Artist group</span><div class="note">P.S. Krøyer, Anna Ancher and Michael Ancher. Skagen was an international summer meeting place for painters c. 1875–1910.</div></div></li>
+      <li><span class="yr">1900</span><div class="what"><span class="who">Vilhelm Hammershøi</span> · <span class="badge b-record">Most expensive Danish painting ever</span><div class="note"><i>Interiør fra Strandgade 30</i> sold at auction in the USA in 2023 for 62.8 million kroner.</div></div></li>
+      <li><span class="yr">1948</span><div class="what"><span class="who">Asger Jorn</span> · <span class="badge b-nordic">Artist group</span><div class="note">Co-founded Cobra (1948–51), named after Copenhagen, Brussels and Amsterdam. Main work: <i>Stalingrad</i>.</div></div></li>
+      <li><span class="yr">1969</span><div class="what"><span class="who">Lene Adler Petersen and Bjørn Nørgaard</span> · <span class="badge b-film">Action art</span><div class="note"><i>Den kvindelige Kristus</i>: she walked naked through Børsen in Copenhagen carrying a cross.</div></div></li>
+      <li><span class="yr">2000</span><div class="what"><span class="who">Bjørn Nørgaard</span> · <span class="badge b-nobel">Royal commission</span><div class="note">17 tapestries in Riddersalen at Christiansborg. A gift for the Queen's 50th birthday in 1990, inaugurated on her 60th in 2000.</div></div></li>
+      <li><span class="yr">2011</span><div class="what"><span class="who">Olafur Eliasson</span> · <span class="badge b-record">150 metres long</span><div class="note"><i>Your rainbow panorama</i>, a circular glass walkway on top of ARoS in Aarhus.</div></div></li>
+    </ol>
+    <p class="remember"><strong>To remember:</strong> Hammershøi painted light and shadow in the rooms of a home. The Skagen painters painted the light from two seas, Skagerrak and Kattegat. Jorn's <i>Stalingrad</i> is white-grey like snow with red splashes for blood.</p>
+  </section>
+
+  <section class="tl-sec" aria-labelledby="tl-h">
+    <h2 id="tl-h">Timeline</h2>
+    <div class="legend" aria-label="Badge legend">
+      <span class="badge b-nordic">Artist group</span>
+      <span class="badge b-nobel">Royal or church commission</span>
+      <span class="badge b-film">Action art</span>
+      <span class="badge b-record">Record</span>
+    </div>
+    <div class="filters" role="group" aria-label="Filter the timeline">
+      <button id="f-all" type="button" data-filter="all" aria-pressed="true">All painters</button>
+      <button id="f-gold" type="button" data-filter="gold" aria-pressed="false">Golden Age</button>
+      <button id="f-skagen" type="button" data-filter="skagen" aria-pressed="false">Skagen painters</button>
+      <button id="f-modern" type="button" data-filter="modern" aria-pressed="false">Modern &amp; contemporary</button>
+      <button id="f-church" type="button" data-filter="church" aria-pressed="false">Church &amp; crown</button>
+      <button id="f-nord" type="button" data-filter="nord" aria-pressed="false">Greenland &amp; Faroe Islands</button>
+      <button id="f-women" type="button" data-filter="women" aria-pressed="false">Women</button>
+    </div>
+    <div id="timeline"></div>
+    <p class="source">Source: <i>Læremateriale til indfødsretsprøven</i> (SIRI, August 2026), chapters 1, 5.3, 6.2 and 6.6. Only facts from the material are included.</p>
+  </section>
+</div>
+
+<script>
+const ERAS = [{"id":"mid","name":"Middelalderen","en":"Middle Ages","span":"c. 1050–1500"},{"id":"abs","name":"Reformation, enevælde og oplysningstid","en":"Reformation, Absolutism and Enlightenment","span":"1536–1700s"},{"id":"gold","name":"Romantik og guldalder","en":"Romanticism and the Golden Age","span":"first half of 1800s"},{"id":"mod","name":"Slutningen af 1800-tallet","en":"Late 19th century","span":"1850–1900"},{"id":"c20a","name":"1900-tallets første halvdel","en":"Early 20th century","span":"1900–1950"},{"id":"c20b","name":"Efterkrigstiden","en":"Post-war to 1990s","span":"1950–2000"},{"id":"now","name":"Nyere tid","en":"Contemporary","span":"2000–today"},{"id":"nd","name":"Uden årstal","en":"No date given in the material","span":"undated"}];
+const A = [{"era":"mid","y":"1050","name":"Kalkmalerier","life":"c. 1050–1500","role":"Church wall paintings","tags":["church"],"works":"The many new churches of the Middle Ages were decorated with wall paintings that worked like a kind of comic strip. They carried the Christian message to the large majority who could not read the Bible or understand Latin. Example: Birkerød Kirke north of Copenhagen."},{"era":"abs","y":"1536","name":"Tapeterne på Kronborg","life":"after the Reformation","role":"Royal art","tags":["church"],"works":"After the Reformation in 1536 it was mainly the king and the nobility who used art to show their wealth. Kronborg in Helsingør holds 40 woven tapestries showing Danish kings."},{"era":"abs","y":"1600s","name":"Christian 4.s hofmalere","life":"reigned 1588–1648","role":"Royal patron","tags":["church"],"works":"Christian 4. had a special interest in art and culture. He brought several well-known foreign painters to Denmark to paint the king and his family and to decorate his many castles."},{"era":"abs","y":"1700s","name":"Det Kongelige Danske Kunstakademi","life":"founded by Frederik 5. (1746–66)","role":"Art academy","tags":["church"],"works":"Founded to train Danish artists who could match those abroad. At Charlottenborg on Kongens Nytorv in Copenhagen, where it still is."},{"era":"gold","y":"1800s","name":"C.W. Eckersberg","life":"1783–1853","role":"Painter","tags":["gold"],"works":"One of the most important painters of the Golden Age. Was on a study stay in Rome with Thorvaldsen. Worked with motifs from the landscape and everyday life around Rome."},{"era":"mod","y":"1860","name":"Constantin Hansen","life":"","role":"Painter","tags":[],"works":"The painting <i>Den Grundlovsgivende Rigsforsamling 1848–49</i> (painted 1860–64), shown in the material's history chapter."},{"era":"mod","y":"1875","name":"P.S. Krøyer","life":"1851–1909","role":"Skagen painter","tags":["skagen"],"works":"One of the Skagen painters, who settled in Denmark's northernmost town towards the end of the 1800s. They painted the fishermen and their hard lives and the painters' own lives."},{"era":"mod","y":"1875","name":"Michael Ancher","life":"1849–1927","role":"Skagen painter","tags":["skagen"],"works":"Skagen painter, married to Anna Ancher. Most of the Skagen painters' main works can be seen at Skagens Museum."},{"era":"mod","y":"1891","name":"Anna Ancher","life":"1859–1935","role":"Skagen painter","tags":["skagen","women"],"works":"<i>Solskin i den blå stue</i> (1891). The light from the two seas around Skagen, Skagerrak and Kattegat, plays a special role in the Skagen painters' pictures."},{"era":"c20a","y":"1900","name":"Vilhelm Hammershøi","life":"1864–1916","role":"Painter","tags":["prize"],"works":"<i>Interiør fra Strandgade 30</i> (1900) shows his wife Ida standing and reading in their home on Christianshavn in Copenhagen. Valued for his ability to paint light and shadow in the rooms of a home.","badges":[["b-record","Sold 2023 for 62.8 million kr., the most expensive Danish painting ever"]]},{"era":"c20a","y":"1938","name":"Hans Lynge","life":"1906–88","role":"Greenlandic artist and author","tags":["nord"],"works":"One of the most significant figures in Greenlandic visual art and literature. His art shows a strong love of the original Greenlandic heritage and the Inuit's traditional way of life. Known for the novel <i>Ersinngitsup piumasaa</i> (1938)."},{"era":"c20a","y":"1948","name":"Asger Jorn","life":"1914–73","role":"Painter","tags":["modern"],"works":"One of the world-famous Danish visual artists. Main work: the large painting <i>Stalingrad</i>, named after the city of one of the bloodiest battles of World War 2 (1942–43). He worked on it 1957–72. The dominant colour is white-grey like the snow, with red splashes that symbolise blood.","badges":[["b-nordic","Co-founder of Cobra, 1948–51"]]},{"era":"c20b","y":"1969","name":"Lene Adler Petersen","life":"b. 1944","role":"Visual artist","tags":["modern","women"],"works":"Has worked with film, actions, graphics, painting and sculpture. In 1969 she and her husband Bjørn Nørgaard created <i>Den kvindelige Kristus</i>, which became an icon of a new experimental art critical of capitalist and male-dominated norms.","badges":[["b-film","Action: Den kvindelige Kristus, 1969"]]},{"era":"c20b","y":"1982","name":"Carl-Henning Pedersen","life":"","role":"Painter","tags":["modern","church"],"works":"Very large, colourful modern glass mosaics and wall paintings with stories from the Bible in Ribe Domkirke, made 1982–87.","badges":[["b-nobel","Ribe Domkirke"]]},{"era":"c20b","y":"1990","name":"Bjørn Nørgaard","life":"b. 1947","role":"Visual artist","tags":["modern","church"],"works":"Main work: 17 large tapestries (<i>gobeliner</i>) in Riddersalen at Christiansborg, telling the history of Denmark from the Viking Age to today. They took 10 years to make.","badges":[["b-nobel","Gift for the Queen's 50th birthday 1990, inaugurated 2000"]]},{"era":"c20b","y":"1999","name":"Per Kirkeby","life":"1938–2018","role":"Painter","tags":["modern"],"works":"Internationally recognised for large abstract paintings that relate to the natural world, exhibited all over the world. Made the large ceiling decoration in Den Sorte Diamant (1999)."},{"era":"now","y":"2011","name":"Olafur Eliasson","life":"b. 1967","role":"Visual artist","tags":["modern","prize"],"works":"Danish-Icelandic. <i>Your rainbow panorama</i> (2011) on top of the art museum ARoS in Aarhus lets you look out over the city in all the colours of the rainbow.","badges":[["b-record","150-metre circular glass walkway"]]},{"era":"nd","y":"—","name":"Kristian Zahrtmann","life":"","role":"Painter","tags":[],"works":"Painting of Christian 7. lying on the sofa with Queen Caroline Mathilde and the royal physician Johann Friedrich Struensee at the table, shown in the material's history chapter."},{"era":"nd","y":"—","name":"Færøsk malerkunst","life":"Faroe Islands","role":"Painting tradition","tags":["nord"],"works":"Faroese painting is at a very high level. The painters often choose Faroese motifs such as the wild nature and life in the small villages, in a way and with colours that everyone can recognise."}];
+const tl = document.getElementById("timeline");
+function render(filter) {
+  tl.innerHTML = "";
+  let shown = 0;
+  for (const era of ERAS) {
+    const rows = A.filter(a => a.era === era.id && (filter === "all" || a.tags.includes(filter)));
+    if (!rows.length) continue;
+    const sec = document.createElement("section");
+    sec.className = "era";
+    sec.innerHTML = '<div class="era-head"><h2>' + era.name + '</h2><span class="span">' + era.en + ' · ' + era.span + '</span></div>';
+    for (const a of rows) {
+      const badges = (a.badges || []).map(([c, t]) => '<span class="badge ' + c + '">' + t + '</span>').join("");
+      const el = document.createElement("article");
+      el.className = "entry";
+      el.innerHTML = '<div class="when">' + a.y + '</div><div class="body"><h3>' + a.name +
+        (a.life ? ' <span class="life">' + a.life + '</span>' : '') + '</h3><div class="role">' + a.role +
+        '</div><p class="works">' + a.works + '</p>' + (badges ? '<div class="badges">' + badges + '</div>' : '') + '</div>';
+      sec.appendChild(el);
+      shown++;
+    }
+    tl.appendChild(sec);
+  }
+  if (!shown) tl.innerHTML = '<p class="empty">Nothing matches this filter.</p>';
+}
+const buttons = document.querySelectorAll(".filters button");
+buttons.forEach(b => b.addEventListener("click", () => {
+  buttons.forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render(b.dataset.filter);
+}));
+render("all");
+</script>
+
+</body></html>

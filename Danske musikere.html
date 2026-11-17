@@ -1,0 +1,184 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Danske musikere</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single reading column; summary first, then the timeline as a spine with the work year on the left. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #1d2129;
+  --muted: #5d6573;
+  --line: #d9dde4;
+  --accent: #b3122e;           /* Dannebrog red */
+  --nobel: #9a6b00;
+  --nobel-bg: #fbf1d8;
+  --nordic: #1d5fa8;
+  --nordic-bg: #e3eefb;
+  --film: #6b3fa0;
+  --film-bg: #efe7f8;
+  --record: #217a4b;
+  --record-bg: #e2f3e9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+    --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+    --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171c; --surface: #1c2027; --fg: #e8eaee; --muted: #9aa3b2; --line: #2e343e;
+  --accent: #ff5a6e; --nobel: #e9b949; --nobel-bg: #3a2f14; --nordic: #7fb4f0; --nordic-bg: #182a40;
+  --film: #c4a2f0; --film-bg: #2c2140; --record: #6fd09c; --record-bg: #173226; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; }
+h1 .flag { color: var(--accent); }
+h2 { font-size: 1.5rem; }
+.lede { color: var(--muted); max-width: 62ch; margin: 10px 0 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* Summary */
+.prizes { display: grid; gap: 14px; }
+.prize-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prize-list li {
+  display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+.prize-list .yr { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.prize-list .what { min-width: 0; }
+.prize-list .who { font-weight: 600; }
+.prize-list .note { color: var(--muted); font-size: 13.5px; }
+.remember { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; color: var(--fg); max-width: 70ch; margin: 0; }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+.b-nobel { background: var(--nobel-bg); color: var(--nobel); }
+.b-nordic { background: var(--nordic-bg); color: var(--nordic); }
+.b-film { background: var(--film-bg); color: var(--film); }
+.b-record { background: var(--record-bg); color: var(--record); }
+
+.tl-sec { display: grid; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--muted); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13.5px; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Timeline */
+.era { display: grid; gap: 0; }
+.era-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 18px 0 10px; border-bottom: 2px solid var(--fg); }
+.era-head .span { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.entry { display: grid; grid-template-columns: 76px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.entry .when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.1rem; color: var(--accent); padding-top: 2px; }
+.entry .body { min-width: 0; display: grid; gap: 4px; }
+.entry h3 { font-size: 1.2rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.entry .life { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.entry .role { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.entry .works { margin: 0; }
+.entry .works i { font-style: italic; }
+.entry .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.empty { color: var(--muted); padding: 16px 0; }
+.source { color: var(--muted); font-size: 13px; margin: 0; }
+@media (max-width: 520px) {
+  .entry { grid-template-columns: 1fr; gap: 4px; }
+  .prize-list li { grid-template-columns: 52px 1fr; }
+}
+
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Indfødsretsprøven · Kapitel 5.4, 5.6 og 6.6</div>
+    <h1>Danske musikere <span class="flag">fra lurerne til MØ</span></h1>
+    <p class="lede">Every composer, singer and band named in the official study material, in time order. The year on the left is the year of the song or work the material highlights. A dash means the material gives no year.</p>
+  </header>
+
+  <section class="prizes" aria-labelledby="prizes-h">
+    <h2 id="prizes-h">Anthems and Eurovision at a glance</h2>
+    <ol class="prize-list">
+      <li><span class="yr">1778</span><div class="what"><span class="who">Kong Christian stod ved højen mast</span> · <span class="badge b-nobel">National anthem + royal anthem</span><div class="note">Text by Johannes Ewald (1778/79). The music is part of Friedrich Kuhlau's <i>Elverhøi</i> (1828).</div></div></li>
+      <li><span class="yr">1819</span><div class="what"><span class="who">Der er et yndigt land</span> · <span class="badge b-nobel">National anthem</span><div class="note">Text by Adam Oehlenschläger (1819), music by Hans Ernst Krøyer (1835).</div></div></li>
+      <li><span class="yr">1963</span><div class="what"><span class="who">Grethe and Jørgen Ingmann</span> · <span class="badge b-nordic">Eurovision winner</span><div class="note"><i>Dansevise</i>. Denmark's first win.</div></div></li>
+      <li><span class="yr">2000</span><div class="what"><span class="who">Brødrene Olsen</span> · <span class="badge b-nordic">Eurovision winner</span><div class="note"><i>Smuk som et stjerneskud / Fly on the Wings of Love</i>, written and performed by Jørgen and Niels Olsen.</div></div></li>
+      <li><span class="yr">2013</span><div class="what"><span class="who">Emmelie de Forest</span> · <span class="badge b-nordic">Eurovision winner</span><div class="note"><i>Only Teardrops</i>.</div></div></li>
+      <li><span class="yr">1990s</span><div class="what"><span class="who">Aqua</span> · <span class="badge b-record">About 28 million CDs sold</span><div class="note">One of the best-selling Danish music groups ever. <i>Barbie Girl</i> was a global hit.</div></div></li>
+    </ol>
+    <p class="remember"><strong>To remember:</strong> Denmark is one of the only countries in the world with two national anthems, and it has won the Eurovision Song Contest three times: 1963, 2000 and 2013.</p>
+  </section>
+
+  <section class="tl-sec" aria-labelledby="tl-h">
+    <h2 id="tl-h">Timeline</h2>
+    <div class="legend" aria-label="Badge legend">
+      <span class="badge b-nobel">National anthem</span>
+      <span class="badge b-nordic">Eurovision winner</span>
+      <span class="badge b-film">Film, TV and stage music</span>
+      <span class="badge b-record">Record</span>
+    </div>
+    <div class="filters" role="group" aria-label="Filter the timeline">
+      <button id="f-all" type="button" data-filter="all" aria-pressed="true">All musicians</button>
+      <button id="f-hymn" type="button" data-filter="hymn" aria-pressed="false">Hymns &amp; anthems</button>
+      <button id="f-prize" type="button" data-filter="prize" aria-pressed="false">Eurovision &amp; records</button>
+      <button id="f-classic" type="button" data-filter="classic" aria-pressed="false">Composers</button>
+      <button id="f-jazz" type="button" data-filter="jazz" aria-pressed="false">Jazz</button>
+      <button id="f-pop" type="button" data-filter="pop" aria-pressed="false">Rock &amp; pop</button>
+      <button id="f-women" type="button" data-filter="women" aria-pressed="false">Women</button>
+    </div>
+    <div id="timeline"></div>
+    <p class="source">Source: <i>Læremateriale til indfødsretsprøven</i> (SIRI, August 2026), chapters 5.4, 5.6, 6.6 and 6.11. Only facts from the material are included.</p>
+  </section>
+</div>
+
+<script>
+const ERAS = [{"id":"old","name":"Oldtid og vikingetid","en":"Prehistory and Viking Age","span":"to c. 1050"},{"id":"abs","name":"Reformation, enevælde og oplysningstid","en":"Reformation, Absolutism and Enlightenment","span":"1536–1700s"},{"id":"gold","name":"Romantik og guldalder","en":"Romanticism and the Golden Age","span":"first half of 1800s"},{"id":"mod","name":"Slutningen af 1800-tallet","en":"Late 19th century","span":"1850–1900"},{"id":"c20a","name":"1900-tallets første halvdel","en":"Early 20th century","span":"1900–1950"},{"id":"c20b","name":"Efterkrigstiden","en":"Post-war to 1990s","span":"1950–2000"},{"id":"now","name":"Nyere tid","en":"Contemporary","span":"2000–today"},{"id":"nd","name":"Uden årstal","en":"No date given in the material","span":"undated"}];
+const A = [{"era":"old","y":"1700 BC","name":"Lurerne","life":"Bronze Age, 1700–500 BC","role":"Bronze horns","tags":[],"works":"Many large horns survive from the Bronze Age and suggest music has been known in Denmark for thousands of years. They were found in pairs. Nobody knows for sure what they were used for or how to play them."},{"era":"abs","y":"1569","name":"Den første salmebog","life":"after the Reformation in 1536","role":"Hymn book","tags":["hymn"],"works":"After the Reformation the congregation sang along, and hymn singing became an important part of the service. The Reformation is also called <i>den syngende revolution</i>. The first hymn book authorised by the king came out in 1569."},{"era":"abs","y":"1600s","name":"Thomas Kingo","life":"1634–1703","role":"Hymn writer","tags":["hymn"],"works":"Hymns with a strong awareness that life is not eternal."},{"era":"abs","y":"1700s","name":"Hans Adolph Brorson","life":"1694–1764","role":"Hymn writer","tags":["hymn"],"works":"Hymns of heartfelt, emotional faith."},{"era":"abs","y":"1778","name":"Johannes Ewald","life":"1743–81","role":"Poet","tags":["hymn"],"works":"Text of <i>Kong Christian stod ved højen mast</i> (1778/79).","badges":[["b-nobel","National anthem and royal anthem"]]},{"era":"gold","y":"1800s","name":"N.F.S. Grundtvig","life":"1783–1872","role":"Hymn writer","tags":["hymn"],"works":"Hymns that praise nature, the child and life on earth as part of God's creation. His patriotic songs and hymns fill <i>Højskolesangbogen</i> and <i>Den Danske Salmebog</i>."},{"era":"gold","y":"1800s","name":"B.S. Ingemann","life":"1789–1862","role":"Hymn writer","tags":["hymn"],"works":"Hymns praising nature, the child and life on earth, like Grundtvig's."},{"era":"gold","y":"1828","name":"Friedrich Kuhlau","life":"1786–1832","role":"Composer","tags":["classic","hymn"],"works":"Music for the National Romantic festival play <i>Elverhøi</i> (1828), which includes the music to <i>Kong Christian stod ved højen mast</i>. Named among the German musicians and composers who immigrated around 1800 and renewed Danish music."},{"era":"gold","y":"1835","name":"Hans Ernst Krøyer","life":"1798–1879","role":"Composer","tags":["classic","hymn"],"works":"Composed the music (1835) to <i>Der er et yndigt land</i>. Adam Oehlenschläger wrote the text in 1819.","badges":[["b-nobel","National anthem"]]},{"era":"mod","y":"1894","name":"Højskolesangbogen","life":"published since 1894","role":"Songbook","tags":["hymn"],"works":"Published in many editions since 1894. Contains patriotic songs and hymns. Communal singing (<i>fællessang</i>) is an important part of folk high school life."},{"era":"c20a","y":"1900s","name":"Carl Nielsen","life":"1865–1931","role":"Composer","tags":["classic","prize"],"works":"Operas, symphonies, chamber music and songs. Roots in the folk music of Funen. Started from the Romantic style of the 1800s and united the popular with the modern. One of the best-known composers in <i>Højskolesangbogen</i>. Married to the sculptor Anne Marie Carl-Nielsen.","badges":[["b-record","The most prominent Danish composer ever"]]},{"era":"c20a","y":"1900s","name":"Leo Mathisen","life":"1906–69","role":"Jazz","tags":["jazz"],"works":"The material's starting point for Danish jazz and its musicians, bandleaders and composers."},{"era":"c20a","y":"1940","name":"Liva Weel","life":"1897–1952","role":"Revue singer","tags":["women"],"works":"Sang Poul Henningsen's song <i>Man binder os på mund og hånd</i> in Kjeld Abell's revue <i>Dyveke</i> (1940). It seemed to be about free love, but the audience heard a call for resistance during the occupation."},{"era":"c20b","y":"1953","name":"Victor Borge","life":"1909–2000","role":"Pianist, comedian","tags":["prize"],"works":"Danish-American. His one-man show of comedy and music, <i>Comedy in the Music</i>, ran on Broadway in New York 1953–56. A forerunner of today's stand-up.","badges":[["b-record","800+ performances on Broadway"]]},{"era":"c20b","y":"1960s","name":"Stan Getz i København","life":"1960s","role":"Jazz","tags":["jazz"],"works":"Copenhagen was home to several American jazz musicians, for example Stan Getz, who sought an artistic refuge while the USA was marked by unrest and racial persecution."},{"era":"c20b","y":"1963","name":"Grethe og Jørgen Ingmann","life":"1938–90 · 1925–2015","role":"Pop duo","tags":["prize","pop","women"],"works":"<i>Dansevise</i>.","badges":[["b-nordic","Eurovision winner 1963, Denmark's first"]]},{"era":"c20b","y":"—","name":"Palle Mikkelborg","life":"b. 1941","role":"Jazz","tags":["jazz"],"works":"Named among the outstanding musicians, bandleaders and composers of Danish jazz."},{"era":"c20b","y":"—","name":"Marilyn Mazur","life":"b. 1955","role":"Jazz","tags":["jazz","women"],"works":"Danish-American. Named with Mathisen and Mikkelborg among the outstanding names of Danish jazz."},{"era":"c20b","y":"1971","name":"Savage Rose","life":"rock band","role":"Rock","tags":["pop"],"works":"Created the ballet <i>Dødens triumf</i> (1971) with the choreographer Flemming Flindt. It criticised a society heading for ruin and caused offence because several dancers performed naked.","badges":[["b-film","Ballet music"]]},{"era":"c20b","y":"1975","name":"Gasolin og Kim Larsen","life":"Kim Larsen 1945–2018","role":"Rock band, lead singer","tags":["pop"],"works":"Combined pop and rock. <i>Kvinde min</i> (1975) and <i>Hva' gør vi nu, lille du?</i> (1976). Kim Larsen had a long career as singer and songwriter. His songs are used at family parties because they express feelings, humour and solidarity simply."},{"era":"c20b","y":"1976","name":"Anne Linnet","life":"","role":"Singer, songwriter","tags":["pop","women"],"works":"<i>Smuk og dejlig</i> (1976), a song about lesbian love."},{"era":"c20b","y":"1978","name":"Bent Fabricius-Bjerre","life":"1924–2020","role":"Composer","tags":["classic"],"works":"Wrote a long line of melodies for films and TV series, for example <i>Matador</i> (first shown 1978–82).","badges":[["b-film","Film and TV music"]]},{"era":"c20b","y":"—","name":"TV-2","life":"band from Aarhus","role":"Pop band","tags":["pop"],"works":"Called themselves, with self-irony, <i>Danmarks kedeligste orkester</i>. Songs about everyday life, love and daring to live. Best-known song: <i>Nærmest lykkelig</i>."},{"era":"c20b","y":"1986","name":"Sebastian","life":"b. 1949","role":"Musician, composer","tags":["classic","pop"],"works":"Music for the musicals <i>Skatteøen</i> (1986) and <i>Ronja Røverdatter</i> (1991), the latter based on a story by the Swedish author Astrid Lindgren.","badges":[["b-film","Musicals"]]},{"era":"c20b","y":"1990s","name":"Aqua","life":"Danish-Norwegian group","role":"Dance pop","tags":["prize","pop"],"works":"<i>Barbie Girl</i> was a global hit. Two albums in their heyday.","badges":[["b-record","About 28 million CDs sold"]]},{"era":"now","y":"2000","name":"Brødrene Olsen","life":"Jørgen b. 1950 · Niels b. 1954","role":"Pop duo","tags":["prize","pop"],"works":"<i>Smuk som et stjerneskud / Fly on the Wings of Love</i>, which they wrote and performed.","badges":[["b-nordic","Eurovision winner 2000"]]},{"era":"now","y":"2004","name":"Outlandish","life":"band","role":"Pop","tags":["pop"],"works":"Recorded and released Poul Henningsen's text <i>Man binder os på mund og hånd</i> in 2004."},{"era":"now","y":"2012","name":"Lukas Graham","life":"Lukas Forchhammer b. 1988","role":"Pop group, lead singer","tags":["prize","pop"],"works":"First album in 2012. Great success in Denmark and internationally.","badges":[["b-record","7 Years: among the top-earning Danish tracks of the 2010s"]]},{"era":"now","y":"2013","name":"MØ","life":"Karen Marie Ørsted, b. 1988","role":"Singer","tags":["pop","women"],"works":"Broke through with <i>Pilgrim</i> (2013), then <i>Kamikaze</i> and <i>Final Song</i>. In 2016 released <i>Cold Water</i> with the American band Major Lazer and the Canadian singer Justin Bieber, a big international hit."},{"era":"now","y":"2013","name":"Emmelie de Forest","life":"b. 1993","role":"Singer","tags":["prize","pop","women"],"works":"<i>Only Teardrops</i>.","badges":[["b-nordic","Eurovision winner 2013"]]},{"era":"nd","y":"—","name":"Grønlandsk musik","life":"Greenland","role":"Tradition","tags":[],"works":"Greenland's cultural life stretches from traditional drum dance (<i>trommedans</i>) to modern rock music."}];
+const tl = document.getElementById("timeline");
+function render(filter) {
+  tl.innerHTML = "";
+  let shown = 0;
+  for (const era of ERAS) {
+    const rows = A.filter(a => a.era === era.id && (filter === "all" || a.tags.includes(filter)));
+    if (!rows.length) continue;
+    const sec = document.createElement("section");
+    sec.className = "era";
+    sec.innerHTML = '<div class="era-head"><h2>' + era.name + '</h2><span class="span">' + era.en + ' · ' + era.span + '</span></div>';
+    for (const a of rows) {
+      const badges = (a.badges || []).map(([c, t]) => '<span class="badge ' + c + '">' + t + '</span>').join("");
+      const el = document.createElement("article");
+      el.className = "entry";
+      el.innerHTML = '<div class="when">' + a.y + '</div><div class="body"><h3>' + a.name +
+        (a.life ? ' <span class="life">' + a.life + '</span>' : '') + '</h3><div class="role">' + a.role +
+        '</div><p class="works">' + a.works + '</p>' + (badges ? '<div class="badges">' + badges + '</div>' : '') + '</div>';
+      sec.appendChild(el);
+      shown++;
+    }
+    tl.appendChild(sec);
+  }
+  if (!shown) tl.innerHTML = '<p class="empty">Nothing matches this filter.</p>';
+}
+const buttons = document.querySelectorAll(".filters button");
+buttons.forEach(b => b.addEventListener("click", () => {
+  buttons.forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render(b.dataset.filter);
+}));
+render("all");
+</script>
+
+</body></html>
